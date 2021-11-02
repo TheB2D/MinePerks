@@ -16,6 +16,6 @@ public class ProgressBar {
         int half = bar.length() % 2 == 0 ? bar.length()/2 : bar.length()/2 + 1;
         String first = bar.substring(0, half);
         String second = bar.substring(half);
-        return first + ChatColor.translateAlternateColorCodes('&', " &lMining Perk " + (int)Math.floor(percent*100) + "%") + second;
+        return first + ChatColor.translateAlternateColorCodes('&', " &l&7Mining Perk " + (int)Math.floor(percent*100) + "% ") + second;
     }
 }
