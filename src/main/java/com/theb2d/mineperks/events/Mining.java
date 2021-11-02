@@ -25,11 +25,10 @@ public class Mining implements Listener {
     @EventHandler
     public static void onBreak(BlockBreakEvent event) {
 
+        Player player = event.getPlayer();
 
 
         Random rand_int = new Random();
-
-        Player player = event.getPlayer();
 
         boolean chance = rand_int.nextInt(25)==6;  // maybe used
 

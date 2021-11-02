@@ -52,6 +52,9 @@ public class ProsperityEvents implements Listener {
                     case REDSTONE_ORE:
                         player_world.dropItem(block_loc, Prosperity.when_redstone_mined);
                         break;
+                    case GOLD_ORE:
+                        player_world.dropItem(block_loc, Prosperity.when_gold_mined);
+                        break;
                     case IRON_ORE:
                         player_world.dropItem(block_loc, Prosperity.when_iron_mined);
                         break;
@@ -62,7 +65,7 @@ public class ProsperityEvents implements Listener {
                         return;
                 }
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6>&b>&a> &7Your prosperity has added an additional drop!"));
-                player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1.0F, 1.0F);
 
             }
         }

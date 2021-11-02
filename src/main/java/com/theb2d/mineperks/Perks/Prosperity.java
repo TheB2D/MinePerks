@@ -14,13 +14,14 @@ import java.util.List;
 public class Prosperity {
 
     private static final int duration = 30;
-    public static int chance = 5;
+    public static int chance = 3;
     public static final ItemStack when_diamond_mined = new ItemStack(Material.DIAMOND_BLOCK);
     public static final ItemStack when_emerald_mined = new ItemStack(Material.EMERALD_BLOCK);
     public static final ItemStack when_redstone_mined = new ItemStack(Material.REDSTONE_BLOCK);
     public static final ItemStack when_iron_mined = new ItemStack(Material.IRON_BLOCK);
     public static final ItemStack when_coal_mined = new ItemStack(Material.COAL_BLOCK);
     public static final ItemStack when_lapis_mined = new ItemStack(Material.LAPIS_BLOCK);
+    public static final ItemStack when_gold_mined = new ItemStack(Material.GOLD_BLOCK);
 
     private static MinePerks mainClass;
 
