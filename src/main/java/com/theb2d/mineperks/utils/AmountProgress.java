@@ -1,8 +1,13 @@
 package com.theb2d.mineperks.utils;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+
+import static com.theb2d.mineperks.utils.ActivatePerk.setPerk;
 
 public class AmountProgress {
 
@@ -38,5 +43,19 @@ public class AmountProgress {
             setPlayerBind(player, 1);
         }
         return true;
+    }
+
+    public static void showProgress(Player player){
+        String progress_bar = ProgressBar.getProgressBar(AmountProgress.getPlayerBind(player), AmountProgress.max, 50, '|', ChatColor.AQUA, ChatColor.GRAY);
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(progress_bar));
+    }
+
+    public static void triggerProgress(Player player){
+        if(addPlayerAmount(player, 1)==false){
+            setPerk(player);
+            return;
+        }else{
+            showProgress(player);
+        }
     }
 }
