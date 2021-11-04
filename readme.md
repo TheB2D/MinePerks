@@ -18,13 +18,13 @@ Demo comming soon!
 
 Perks
 ---------------
-###Finished perks:
+### Finished perks:
 **Lightning Tempo** - A sudden burst of speed while mining </br>
 **Detonation** - Chance of explosion while mining </br>
 **Prosperity** - Chance of turning ores mined into it's block form (Customizable) </br>
 **Miner's Aura** - Summons a circular aura around the player, breaking any block the circular perimeter comes across.
 
-###Unfinished perks:
+### Unfinished perks:
 **Hercules' Might** - Enable player to break bedrock for the duration </br>
 **Sonar Scanner** - Plays a sound in the location where there is a nearby diamond ore</br>
 **Amplified breaker** - Chance of mining a layer spanning 2x2 chunks </br>
