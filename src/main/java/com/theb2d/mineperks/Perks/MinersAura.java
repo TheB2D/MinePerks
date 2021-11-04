@@ -1,6 +1,7 @@
 package com.theb2d.mineperks.Perks;
 
 import com.theb2d.mineperks.MinePerks;
+import com.theb2d.mineperks.utils.AmountProgress;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -11,19 +12,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinersAura {
+
     private static float radius = 5f;
-    private static float angle = 0f;
     private static final int duration = 30;
-    public static boolean isEnabled;
+    private static final boolean givePoints = true; //give points for every 3 blocks mined
 
     private static MinePerks mainClass;
+    private static float angle = 0f;
 
     public MinersAura(MinePerks main){
         this.mainClass=main;
     }
 
+    public static List<Player> players_affected = new ArrayList<Player>();
+
+    public static List<Player> getPlayersAffected(){
+        return players_affected;
+    }
+
     public static void apply(Player player){
-        isEnabled = true;
+        players_affected.add(player);
+
 
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&l&4Miner's Aura activated!"));
 
@@ -47,6 +56,9 @@ public class MinersAura {
 
                 if(block_aura_at.getType() != Material.AIR || block_aura_at2.getType() != Material.AIR || block_aura_at3.getType()!=Material.AIR){
                     player.getInventory().addItem(new ItemStack(block_aura_at.getType()), new ItemStack(block_aura_at2.getType()), new ItemStack(block_aura_at3.getType()));
+
+                    if(givePoints!=false){AmountProgress.triggerProgress(player);}
+
                     block_aura_at.setType(Material.AIR, true);
                     block_aura_at2.setType(Material.AIR, true);
                     block_aura_at3.setType(Material.AIR, true);
@@ -58,9 +70,10 @@ public class MinersAura {
 
                 if(i == duration*20) {
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&l&4Miner's Aura has mined you &b&l" + amount_mined + " blocks! &7It has now worn out..."));
+                    players_affected.remove(player);
                     this.cancel();
                 }
-                angle += 0.1;
+                angle += 1;
             }
         }.runTaskTimer(mainClass, 0, 1);
 

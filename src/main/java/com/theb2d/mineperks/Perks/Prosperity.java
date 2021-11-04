@@ -47,6 +47,5 @@ public class Prosperity {
             }
         }.runTaskLater(mainClass, duration*20); //FIXME
 
-
     }
 }

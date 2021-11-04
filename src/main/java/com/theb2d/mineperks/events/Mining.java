@@ -33,13 +33,7 @@ public class Mining implements Listener {
         boolean chance = rand_int.nextInt(25)==6;  // maybe used
 
         if(true){ // TODO: change true to chance if you want to make getting points harder
-            if(AmountProgress.addPlayerAmount(player, 1)==false){
-                ActivatePerk.setPerk(player);
-                return;
-            }else{
-                String progress_bar = ProgressBar.getProgressBar(AmountProgress.getPlayerBind(player), AmountProgress.max, 50, '|', ChatColor.AQUA, ChatColor.GRAY);
-                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(progress_bar));
-            }
+            AmountProgress.triggerProgress(player);
         }
     }
 }

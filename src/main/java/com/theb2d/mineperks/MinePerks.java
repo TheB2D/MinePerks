@@ -1,8 +1,6 @@
 package com.theb2d.mineperks;
 
-import com.theb2d.mineperks.Perks.Detonation;
-import com.theb2d.mineperks.Perks.MinersAura;
-import com.theb2d.mineperks.Perks.Prosperity;
+import com.theb2d.mineperks.Perks.*;
 import com.theb2d.mineperks.events.Mining;
 import com.theb2d.mineperks.perks_events.DetonationEvents;
 import com.theb2d.mineperks.perks_events.ProsperityEvents;
@@ -17,16 +15,20 @@ public final class MinePerks extends JavaPlugin {
     public Prosperity prosperityPerk;
     public ProsperityEvents prosperityEvents;
     public MinersAura minersAura;
+    public LightningTempo lightningTempo;
+    public SonarSense sonarSense;
 
     @Override
     public void onEnable() {
 
+        lightningTempo = new LightningTempo(this);
         detonationEvents = new DetonationEvents(this);
         detonationPerk = new Detonation(this);
         miningEvent = new Mining(this);
         prosperityEvents = new ProsperityEvents(this);
         prosperityPerk = new Prosperity(this);
         minersAura = new MinersAura(this);
+        sonarSense = new SonarSense(this);
 
 
         getServer().getPluginManager().registerEvents(miningEvent, this);
