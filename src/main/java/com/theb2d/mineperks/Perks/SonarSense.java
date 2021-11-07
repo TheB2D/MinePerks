@@ -8,11 +8,18 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.ceil;
+
 public class SonarSense {
 
+    /*
+    * TODO: Activation message
+    * TODO: Different messages for each response whether or not diamonds is in range*/
+
     public static int interval = 10; //secs
-    public static Material find_for = Material.DIAMOND_ORE;
-    private static int duration = 30;
+    public static Material find_for = Material.GLASS;
+    private static int duration = 120;
+    private static int minimum_distance_trigger = 16; //in blocks
 
     private static MinePerks mainClass;
 
@@ -45,6 +52,36 @@ public class SonarSense {
         return null;
     }
 
+    synchronized private static float getPitch(Player player, Location loc){
+        Double distance = player.getLocation().distance(loc);
+
+        int change_pitch_per_blocks = 1; //there will be a total of 4 pitches
+
+        if(distance>minimum_distance_trigger){
+            //nothing
+        }else{
+            float i=0;
+            while((int)ceil(distance) < minimum_distance_trigger){
+                i++;
+                distance+=change_pitch_per_blocks;
+                player.sendMessage(Integer.toString((int)i));
+                if((int)ceil(distance)>minimum_distance_trigger){
+                    return i; //pitch
+                }
+            }
+
+//
+//            for (float i = 0; distance < minimum_distance_trigger; i+=1) {
+//                distance+=change_pitch_per_blocks;
+//                if(distance>=minimum_distance_trigger){
+//                    return i; //pitch
+//                }
+//            }
+
+        }
+        return 0F;
+    }
+
     public static void apply(Player player){
         players_affected.add(player);
 
@@ -52,9 +89,9 @@ public class SonarSense {
             public void run() {
                 if(players_affected.contains(player)){
                     if(findNearMaterial(player.getLocation().getChunk())!=null){
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bYour sonar sense has detected some diamonds nearby... Listen to your head!"));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&l♪ &8► &7Your sonar sense has detected some diamonds nearby... Listen to your head!"));
                     }else{
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bYour sonar sense is not detecting any diamonds nearby..."));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&l♪ &8► &7Your sonar sense is not detecting any diamonds nearby..."));
                     }
                 }else{
                     this.cancel();
@@ -67,14 +104,14 @@ public class SonarSense {
             public void run() {
                 if(players_affected.contains(player)) {
                     if (findNearMaterial(player.getLocation().getChunk()) != null) {
-                        player.playSound(findNearMaterial(player.getLocation().getChunk()), Sound.BLOCK_NOTE_BLOCK_HARP, 5.0F, 5.0F);
                         player.getWorld().spawnParticle(Particle.NOTE, findNearMaterial(player.getLocation().getChunk()), 1);
+                        player.playSound(findNearMaterial(player.getLocation().getChunk()), Sound.BLOCK_NOTE_BLOCK_HARP, 5.0F, getPitch(player, findNearMaterial(player.getLocation().getChunk())));
                     }
                 }else{
                     this.cancel();
                 }
             }
-        }.runTaskTimer(mainClass, 60, 5);
+        }.runTaskTimer(mainClass, 60, 100); //period: 5
 
         new BukkitRunnable() {
             @Override
