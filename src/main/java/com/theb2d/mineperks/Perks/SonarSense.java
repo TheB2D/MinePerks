@@ -17,7 +17,7 @@ public class SonarSense {
     * TODO: Different messages for each response whether or not diamonds is in range*/
 
     public static int interval = 10; //secs
-    public static Material find_for = Material.GLASS;
+    public static Material find_for = Material.DIAMOND_ORE;
     private static int duration = 120;
     private static int minimum_distance_trigger = 16; //in blocks
 
@@ -53,33 +53,9 @@ public class SonarSense {
     }
 
     synchronized private static float getPitch(Player player, Location loc){
-        Double distance = player.getLocation().distance(loc);
+        double distance = player.getLocation().distance(loc);
 
-        int change_pitch_per_blocks = 1; //there will be a total of 4 pitches
-
-        if(distance>minimum_distance_trigger){
-            //nothing
-        }else{
-            float i=0;
-            while((int)ceil(distance) < minimum_distance_trigger){
-                i++;
-                distance+=change_pitch_per_blocks;
-                player.sendMessage(Integer.toString((int)i));
-                if((int)ceil(distance)>minimum_distance_trigger){
-                    return i; //pitch
-                }
-            }
-
-//
-//            for (float i = 0; distance < minimum_distance_trigger; i+=1) {
-//                distance+=change_pitch_per_blocks;
-//                if(distance>=minimum_distance_trigger){
-//                    return i; //pitch
-//                }
-//            }
-
-        }
-        return 0F;
+        return 2.0F-((float)(ceil(distance)/10));
     }
 
     public static void apply(Player player){
@@ -111,7 +87,7 @@ public class SonarSense {
                     this.cancel();
                 }
             }
-        }.runTaskTimer(mainClass, 60, 100); //period: 5
+        }.runTaskTimer(mainClass, 60, 5); //period: 5
 
         new BukkitRunnable() {
             @Override
