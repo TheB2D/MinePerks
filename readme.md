@@ -13,7 +13,7 @@
 Some Demo
 ------------
 <figure>
-<img src="Assets/MinersAura.gif" alt="MinersAura" style="width:100%">
+<img src="Assets/MinersAura.gif" alt="MinersAura" style="width:50%">
 <figcaption align = "center"><b>Miner's Aura Demo</b></figcaption>
 </figure>
 
