@@ -12,9 +12,10 @@
 
 Some Demo
 ------------
-
-Demo comming soon!
-
+<figure>
+<img src="Assets/MinersAura.gif" alt="MinersAura" style="width:100%">
+<figcaption align = "center"><b>Miner's Aura Demo</b></figcaption>
+</figure>
 
 Perks
 ---------------
