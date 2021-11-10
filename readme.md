@@ -13,7 +13,7 @@
 Some Demo
 ------------
 <figure>
-<img src="Assets/MinersAura.gif" alt="MinersAura" style="width:50%">
+<img src="Assets/MinersAura.gif" alt="MinersAura" style="width:50is %">
 <figcaption align = "center"><b>Miner's Aura Demo</b></figcaption>
 </figure>
 
@@ -24,7 +24,7 @@ Perks
 **Detonation** - Chance of explosion while mining </br>
 **Prosperity** - Chance of turning ores mined into it's block form (Customizable) </br>
 **Miner's Aura** - Summons a circular aura around the player, breaking any block the circular perimeter comes across.</br>
-**Sonar Scanner** - Plays a sound in the location where there is a nearby diamond ore. Pitch of the sound goes up or down depending on how close the player from the destination</br>
+**Sonar Scanner** - Plays a sound in the location where there is a nearby diamond ore. The Pitch of the sound goes up or down depending on how close the player from the destination</br>
 
 ### Unfinished perks:
 **Hercules' Might** - Enable player to break bedrock for the duration </br>
