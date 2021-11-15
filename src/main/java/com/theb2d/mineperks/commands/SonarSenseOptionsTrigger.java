@@ -20,7 +20,7 @@ public class SonarSenseOptionsTrigger implements CommandExecutor {
         Player player = (Player) sender;
         switch(command.getName().toLowerCase()){
             case "sonarsense":
-                sonarSenseOptions = new SonarSenseOptions();
+                sonarSenseOptions = new SonarSenseOptions(player);
                 player.openInventory(sonarSenseOptions.getInventory());
                 return true;
         }

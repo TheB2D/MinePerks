@@ -10,6 +10,8 @@ import java.util.List;
 
 public class InventoryUtils {
 
+    public static ItemStack filler = InventoryUtils.create(" ", Material.GRAY_STAINED_GLASS_PANE, false);
+
     public static ItemStack create(String name, Material mat, List<String> lore, boolean isShiny){
         ItemStack item = new ItemStack(mat, 1);
         ItemMeta meta = item.getItemMeta();
