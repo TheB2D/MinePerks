@@ -3,15 +3,10 @@ package com.theb2d.mineperks;
 import com.theb2d.mineperks.Perks.*;
 import com.theb2d.mineperks.commands.SonarSenseOptionsTrigger;
 import com.theb2d.mineperks.events.Mining;
-import com.theb2d.mineperks.inventories.SonarSenseOptions;
 import com.theb2d.mineperks.inventory_events.SonarSenseOptionsClick;
 import com.theb2d.mineperks.perks_events.DetonationEvents;
 import com.theb2d.mineperks.perks_events.ProsperityEvents;
-import com.theb2d.mineperks.utils.PlayerSonarSenseBindsTo;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -29,9 +24,6 @@ public final class MinePerks extends JavaPlugin {
     public SonarSenseOptionsTrigger sonarSenseOptionsTrigger;
     public static SonarSenseOptionsClick sonarSenseOptionsClick; //TODO
 
-    public static File file;
-    public static FileConfiguration players;
-
     @Override
     public void onEnable() {
 
@@ -45,9 +37,6 @@ public final class MinePerks extends JavaPlugin {
         sonarSense = new SonarSense(this);
         sonarSenseOptionsTrigger = new SonarSenseOptionsTrigger();
         sonarSenseOptionsClick = new SonarSenseOptionsClick(this);
-
-        File file = new File("player_binds.yml");
-        FileConfiguration players = YamlConfiguration.loadConfiguration(file);
 
         getCommand("sonarsense").setExecutor(sonarSenseOptionsTrigger);
 

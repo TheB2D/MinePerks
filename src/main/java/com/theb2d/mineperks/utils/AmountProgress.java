@@ -51,7 +51,7 @@ public class AmountProgress {
     }
 
     public static void triggerProgress(Player player){
-        if(addPlayerAmount(player, 1)==false){
+        if(!addPlayerAmount(player, 1)){
             setPerk(player);
             return;
         }else{
