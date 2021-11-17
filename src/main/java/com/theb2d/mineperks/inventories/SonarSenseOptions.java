@@ -1,6 +1,7 @@
 package com.theb2d.mineperks.inventories;
 
 import com.theb2d.mineperks.utils.InventoryUtils;
+import com.theb2d.mineperks.utils.MaterialMatcher;
 import com.theb2d.mineperks.utils.PlayerSonarSenseBindsTo;
 import org.apache.commons.lang.NullArgumentException;
 import org.bukkit.Bukkit;
@@ -13,61 +14,44 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
 
 import static com.theb2d.mineperks.utils.InventoryUtils.filler;
 
 public class SonarSenseOptions implements InventoryHolder {
 
     private Inventory inv;
-    private static ItemStack targeted_ore;
 
     public SonarSenseOptions(Player player){
-        try{
-            targeted_ore = PlayerSonarSenseBindsTo.getPlayerTargetOre(player);
-        }catch(NullArgumentException e){
-            ;
-        }
         inv = Bukkit.createInventory(this, 27 , "Sonar sense options");
-        init();
+        init(player);
     }
 
-    private void init(){
+    private void init(Player player){
+
+
+        ItemStack targeted_ore = PlayerSonarSenseBindsTo.getPlayerTargetOre(player, false);
 
         int row = 9;
-        String selected_ore_lore = ChatColor.BOLD + "You have this ore selected!";
-        ItemStack diamond, redstone, emerald, gold, lapis, iron, coal;
+        String selected_ore_lore = ChatColor.GRAY + "You have this ore selected!";
+        List<String> not_selected_lore = Collections.singletonList(ChatColor.GRAY + "Click to target this ore block!");
+        ItemStack diamond, redstone, emerald, gold, lapis, iron, coal, selected_ore;
 
-        diamond = InventoryUtils.create(ChatColor.GREEN + "Diamond ore", Material.DIAMOND, Collections.singletonList(ChatColor.GRAY + "Click to target this ore block!"), false);
-        emerald = InventoryUtils.create(ChatColor.GREEN + "Emerald ore", Material.EMERALD, Collections.singletonList(ChatColor.GRAY + "Click to target this ore block!"), false);
-        redstone = InventoryUtils.create(ChatColor.GREEN + "Redstone ore", Material.REDSTONE, Collections.singletonList(ChatColor.GRAY + "Click to target this ore block!"), false);
-        gold = InventoryUtils.create(ChatColor.GREEN + "Gold ore", Material.GOLD_INGOT, Collections.singletonList(ChatColor.GRAY + "Click to target this ore block!"), false);
-        lapis = InventoryUtils.create(ChatColor.GREEN + "Lapis ore", Material.LAPIS_LAZULI, Collections.singletonList(ChatColor.GRAY + "Click to target this ore block!"), false);
-        iron = InventoryUtils.create(ChatColor.GREEN + "Iron ore", Material.IRON_INGOT, Collections.singletonList(ChatColor.GRAY + "Click to target this ore block!"), false);
-        coal = InventoryUtils.create(ChatColor.GREEN + "Coal ore", Material.COAL, Collections.singletonList(ChatColor.GRAY + "Click to target this ore block!"), false);
 
-        switch(targeted_ore.getType()){
-            case DIAMOND:
-                diamond = InventoryUtils.create(ChatColor.GREEN + "Diamond ore", Material.DIAMOND, Collections.singletonList(selected_ore_lore), true);
-                break;
-            case EMERALD:
-                emerald = InventoryUtils.create(ChatColor.GREEN + "Emerald ore", Material.EMERALD, Collections.singletonList(selected_ore_lore), true);
-                break;
-            case REDSTONE:
-                redstone = InventoryUtils.create(ChatColor.GREEN + "Redstone ore", Material.REDSTONE, Collections.singletonList(selected_ore_lore), true);
-                break;
-            case GOLD_INGOT:
-                gold = InventoryUtils.create(ChatColor.GREEN + "Gold ore", Material.GOLD_INGOT, Collections.singletonList(selected_ore_lore), true);
-                break;
-            case LAPIS_LAZULI:
-                lapis = InventoryUtils.create(ChatColor.GREEN + "Lapis ore", Material.LAPIS_LAZULI, Collections.singletonList(selected_ore_lore), true);
-                break;
-            case IRON_INGOT:
-                iron = InventoryUtils.create(ChatColor.GREEN + "Iron ore", Material.IRON_INGOT, Collections.singletonList(selected_ore_lore), true);
-                break;
-            case COAL:
-                coal = InventoryUtils.create(ChatColor.GREEN + "Coal ore", Material.COAL, Collections.singletonList(selected_ore_lore), true);
-                break;
-        }
+        selected_ore = InventoryUtils.create(ChatColor.GREEN + MaterialMatcher.matchMaterialOreFormStr(targeted_ore.getType(), true), MaterialMatcher.matchMaterialOreForm(targeted_ore.getType()), Collections.singletonList(selected_ore_lore), true);
+
+
+        diamond = selected_ore.getType()!=Material.DIAMOND_ORE ? InventoryUtils.create(ChatColor.GREEN + "Diamond ore", Material.DIAMOND, not_selected_lore, false) : selected_ore;
+        emerald = selected_ore.getType()!=Material.EMERALD_ORE ? InventoryUtils.create(ChatColor.GREEN + "Emerald ore", Material.EMERALD, not_selected_lore, false) : selected_ore;
+        redstone = selected_ore.getType()!=Material.REDSTONE_ORE ? InventoryUtils.create(ChatColor.GREEN + "Redstone ore", Material.REDSTONE, not_selected_lore, false) : selected_ore;
+        gold = selected_ore.getType()!=Material.GOLD_ORE ? InventoryUtils.create(ChatColor.GREEN + "Gold ore", Material.GOLD_INGOT, not_selected_lore, false) : selected_ore;
+        lapis = selected_ore.getType()!=Material.LAPIS_ORE ? InventoryUtils.create(ChatColor.GREEN + "Lapis Lazuli ore", Material.LAPIS_LAZULI, not_selected_lore, false) : selected_ore;
+        iron = selected_ore.getType()!=Material.IRON_ORE ? InventoryUtils.create(ChatColor.GREEN + "Iron ore", Material.IRON_INGOT, not_selected_lore, false) : selected_ore;
+        coal = selected_ore.getType()!=Material.COAL_ORE ? InventoryUtils.create(ChatColor.GREEN + "Coal ore", Material.COAL, not_selected_lore, false) : selected_ore;
+
+
+
         for(int i=0; i<11; i++){
             inv.setItem(i, filler);
         }

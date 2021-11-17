@@ -5,7 +5,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -43,18 +42,28 @@ public class PlayerSonarSenseBindsTo {
         return player_list;
     }
 
-    public static ItemStack getPlayerTargetOre(Player player){
+    public static ItemStack getPlayerTargetOre(Player player, Boolean ore){
         ItemStack def = new ItemStack(Material.DIAMOND);
-        if(players_binds.getItemStack(player.getName())==null){
-            return def;
-        }
 
-        try{
-            ItemStack return_val = players_binds.getItemStack(player.getName());
-            return return_val;
-        }catch(IllegalArgumentException e){
+        if(ore){
+            if(players_binds.getItemStack(player.getName())==null){
+                return (new ItemStack(Material.DIAMOND_ORE));
+            }
+            try{
+                ItemStack return_val = new ItemStack(MaterialMatcher.matchMaterialOreForm(players_binds.getItemStack(player.getName()).getType()));
+                return return_val;
+            }catch(IllegalArgumentException e){
+                ;
+            }
+        }else{
+            if(players_binds.getItemStack(player.getName())==null){
+                return def;
+            }
+            try{
+                ItemStack return_val = players_binds.getItemStack(player.getName());
+                return return_val;
+            }catch(IllegalArgumentException e){ }
         }
-
         return def;
     }
 }

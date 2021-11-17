@@ -1,6 +1,8 @@
 package com.theb2d.mineperks.Perks;
 
 import com.theb2d.mineperks.MinePerks;
+import com.theb2d.mineperks.utils.MaterialMatcher;
+import com.theb2d.mineperks.utils.PlayerSonarSenseBindsTo;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -17,9 +19,7 @@ public class SonarSense {
     * TODO: Different messages for each response whether or not diamonds is in range*/
 
     public static int interval = 10; //secs
-    public static Material find_for = Material.DIAMOND_ORE;
-    private static int duration = 120;
-    private static int minimum_distance_trigger = 16; //in blocks
+    private static int duration = 60;
 
     private static MinePerks mainClass;
 
@@ -33,7 +33,10 @@ public class SonarSense {
         return players_affected;
     }
 
-    public static Location findNearMaterial(Chunk chunk) {
+    public static Location findNearMaterial(Chunk chunk, Player player) {
+
+        Material find_for = PlayerSonarSenseBindsTo.getPlayerTargetOre(player, true).getType();
+
         int bx = chunk.getX()<<4;
         int bz = chunk.getZ()<<4;
 
@@ -60,15 +63,18 @@ public class SonarSense {
 
     public static void apply(Player player){
         players_affected.add(player);
+        String ore = MaterialMatcher.matchMaterialOreFormStr(PlayerSonarSenseBindsTo.getPlayerTargetOre(player, false).getType(), false);
 
         new BukkitRunnable() {
             public void run() {
                 if(players_affected.contains(player)){
-                    if(findNearMaterial(player.getLocation().getChunk())!=null){
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&l♪ &8► &7Your sonar sense has detected some diamonds nearby... Listen to your head!"));
+
+                    if(findNearMaterial(player.getLocation().getChunk(), player)!=null){
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&l♪ &8► &7Your sonar sense has detected some " + ore + " nearby... Listen to your head!"));
                     }else{
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&l♪ &8► &7Your sonar sense is not detecting any diamonds nearby..."));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&l♪ &8► &7Your sonar sense is not detecting any " + ore + " nearby..."));
                     }
+
                 }else{
                     this.cancel();
                 }
@@ -79,9 +85,9 @@ public class SonarSense {
             @Override
             public void run() {
                 if(players_affected.contains(player)) {
-                    if (findNearMaterial(player.getLocation().getChunk()) != null) {
-                        player.getWorld().spawnParticle(Particle.NOTE, findNearMaterial(player.getLocation().getChunk()), 1);
-                        player.playSound(findNearMaterial(player.getLocation().getChunk()), Sound.BLOCK_NOTE_BLOCK_HARP, 5.0F, getPitch(player, findNearMaterial(player.getLocation().getChunk())));
+                    if (findNearMaterial(player.getLocation().getChunk(), player) != null) {
+                        player.getWorld().spawnParticle(Particle.NOTE, findNearMaterial(player.getLocation().getChunk(), player), 1);
+                        player.playSound(findNearMaterial(player.getLocation().getChunk(), player), Sound.BLOCK_NOTE_BLOCK_HARP, 5.0F, getPitch(player, findNearMaterial(player.getLocation().getChunk(), player)));
                     }
                 }else{
                     this.cancel();
