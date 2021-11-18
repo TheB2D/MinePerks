@@ -25,16 +25,16 @@ Perks
 **Prosperity** - Chance of turning ores mined into it's block form (Customizable) </br>
 **Miner's Aura** - Summons a circular aura around the player, breaking any block the circular perimeter comes across.</br>
 **Sonar Scanner** - Plays a sound in the location where there is a nearby diamond ore. The Pitch of the sound goes up or down depending on how close the player is from the destination</br>
+**Hercules' Might** - Enable the player to break bedrock for the duration by right clicking on a bedrock block, it takes a certain amount of time for the bedrock to break (customizable) and the pickaxe can't be used while bedrock breaking is executing </br>
 
 ### Unfinished perks:
-**Hercules' Might** - Enable player to break bedrock for the duration </br>
 **Amplified breaker** - Chance of mining a layer spanning 2x2 chunks </br>
 **Cave's Gift** - Chance to summon care packages upon mining </br>
 
 
 Supported Versions
 ---------------
-1.17.1 (Other versions has not been tested)
+1.17.1 (Other versions has not been tested yet)
 
 ---------------
 

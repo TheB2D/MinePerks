@@ -4,6 +4,7 @@ main: com.theb2d.mineperks.MinePerks
 api-version: 1.17
 authors: [ TheB2D ]
 description: A plugin that gives you perks while mining, useful for SMPs!
+softdepend: [HolographicDisplays]
 commands:
   sonarsense:
     description: configure sonar sense perk
