@@ -15,6 +15,11 @@ Some Demo
 <figure>
 <img src="Assets/MinersAura.gif" alt="MinersAura" style="width:50is %">
 <figcaption align = "center"><b>Miner's Aura Demo</b></figcaption>
+</figure></br></br></br>
+
+<figure>
+<img src="Assets/MinersAura.gif" alt="HerculesMight" style="width:50is %">
+<figcaption align = "center"><b>Hercules' Might Demo</b></figcaption>
 </figure>
 
 Perks
