@@ -18,7 +18,7 @@ Some Demo
 </figure></br></br></br>
 
 <figure>
-<img src="Assets/MinersAura.gif" alt="HerculesMight" style="width:50is %">
+<img src="Assets/HerculesDemo.gif" alt="HerculesMight" style="width:50is %">
 <figcaption align = "center"><b>Hercules' Might Demo</b></figcaption>
 </figure>
 
