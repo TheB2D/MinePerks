@@ -1,5 +1,6 @@
 ![logo](Assets/MinePerksLogo.png)
 # Mine Perks - Making Mining less boring! (In Development)
+**Update:** Releasing this week! </br></br> 
 **Mine Perks is:**
 - **Customizable** (Customize **EVERY** perk, from duration to its range!)
 
