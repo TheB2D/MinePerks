@@ -19,8 +19,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class HerculesMight {
+    public static int duration_of_break = 15; //secs
+
     private static List<Player> players_affected = new ArrayList<Player>();
     private static MinePerks mainClass;
+    private static List<Player> players_mining_processed = new ArrayList<Player>();
 
     public HerculesMight(MinePerks main){
         this.mainClass=main;
@@ -32,7 +35,7 @@ public class HerculesMight {
     public static List<ArmorStand> armor_stands_deployed = new ArrayList<ArmorStand>();
 
     public static void apply(Player player){
-        //armor_stands_deployed.add(as);
+        players_affected.add(player);
     }
 
     public static void loopAnimation(Player player, Location location){
@@ -43,7 +46,13 @@ public class HerculesMight {
             return;
         }
 
-        ArmorStand am = player.getLocation().getWorld().spawn(location.add(0.71, 0.7 ,0), ArmorStand.class);
+        if(!players_mining_processed.contains(player)){
+            players_mining_processed.add(player);
+        }else{
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lWoah slow down! &7You can only mine 1 bedrock at a time"));
+            return;
+        }
+        ArmorStand am = player.getLocation().getWorld().spawn(location.add(0.65, 0.7 ,0), ArmorStand.class);
         HerculesMight.armor_stands_deployed.add(am);
         am.setInvisible(true);
         am.setInvulnerable(true);
@@ -76,10 +85,14 @@ public class HerculesMight {
         hologram.insertTextLine(1,  "");
 
         new BukkitRunnable(){
-            int duration = 15;
+
+            int dur = duration_of_break;
             @Override
             public void run() {
-                if(duration<=0){
+                if(!armor_stands_deployed.contains(am)){
+                    this.cancel();
+                }
+                if(dur<=0){
                     armor_stands_deployed.remove(am);
                     am.remove();
                     hologram.removeLine(1);
@@ -91,18 +104,23 @@ public class HerculesMight {
 
                     pickaxe.setPickupHandler(new PickupHandler() {
 
+                        Player picker = player;
+
                         @Override
                         public void onPickup(Player player) {
+                            if(player==picker){
+                                // Play an effect.
+                                player.playEffect(hologram.getLocation(), Effect.MOBSPAWNER_FLAMES, null);
 
-                            // Play an effect.
-                            player.playEffect(hologram.getLocation(), Effect.MOBSPAWNER_FLAMES, null);
+                                // give item
+                                player.getInventory().remove(filler_item);
+                                player.getInventory().addItem(item);
 
-                            // 30 seconds of speed II.
-                            player.getInventory().remove(filler_item);
-                            player.getInventory().addItem(item);
-
-                            // Delete the hologram.
-                            hologram.delete();
+                                // Delete the hologram.
+                                hologram.delete();
+                            }else{
+                                return; 
+                            }
 
                         }
                     });
@@ -115,17 +133,20 @@ public class HerculesMight {
 
                     fw.setFireworkMeta(fwm);
                     fw.detonate();
+                    players_mining_processed.remove(player);
                     this.cancel();
                     return;
                 }
+
                 location.getWorld().spawnParticle(Particle.ITEM_CRACK, location, 20, break_effect);
                 location.getWorld().playSound(location, Sound.BLOCK_STONE_BREAK, 1.0F, 1.0F);
                 hologram.removeLine(1);
-                hologram.insertTextLine(1,  ChatColor.translateAlternateColorCodes('&', "&l" + timerFormat(duration)));
-                duration-=1;
+                hologram.insertTextLine(1,  ChatColor.translateAlternateColorCodes('&', "&l" + timerFormat(dur)));
+                dur-=1;
             }
         }.runTaskTimer(mainClass, 0, 20);
     }
+
 
 
     public static void destroyArmorstandsDeployed(){
@@ -134,6 +155,7 @@ public class HerculesMight {
         }
         return;
     }
+
 
     private static String timerFormat(int secs){
         String mins_f, sec_f;
