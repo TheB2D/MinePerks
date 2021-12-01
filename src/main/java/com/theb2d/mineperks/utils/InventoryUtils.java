@@ -3,6 +3,7 @@ package com.theb2d.mineperks.utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -41,6 +42,7 @@ public class InventoryUtils {
 
     public static ItemStack create(String name, Material mat, String lore, boolean isShiny){
         List<String> lore_list = Arrays.asList(lore.split("`"));
+
         ItemStack item = new ItemStack(mat, 1);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
@@ -51,5 +53,15 @@ public class InventoryUtils {
         }
         item.setItemMeta(meta);
         return item;
+    }
+
+    public static void fillFiller(Inventory other_inv){
+        int size;
+        size = other_inv.getSize();
+        for (int i = 0; i < size; i++) {
+            if(other_inv.getItem(i)==null){
+                other_inv.setItem(i, filler);
+            }
+        }
     }
 }

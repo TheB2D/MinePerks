@@ -14,6 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,10 +47,9 @@ public final class MinePerks extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.saveDefaultConfig();
 
         config = new Config(this);
-        configuration = new Configuration();
+        configuration = new Configuration(this);
 
         lightningTempo = new LightningTempo(this);
         detonationEvents = new DetonationEvents(this);
@@ -70,6 +70,7 @@ public final class MinePerks extends JavaPlugin {
 
         getCommand("sonarsense").setExecutor(sonarSenseOptionsTrigger);
         getCommand("mineperks").setExecutor(configuration);
+        getCommand("test").setExecutor(configuration);
 
         useHolographicDisplays = Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays");
 
@@ -87,6 +88,7 @@ public final class MinePerks extends JavaPlugin {
     @Override
     public void onDisable() {
         HerculesMight.destroyArmorstandsDeployed();
+        this.saveConfig();
         getServer().getConsoleSender().sendMessage("[MinePerks] MinePerks has been enabled!" + ChatColor.RED);
     }
 }

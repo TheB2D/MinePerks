@@ -32,12 +32,14 @@ public class PowerLevel implements InventoryHolder {
         inv.setItem(11, create(ChatColor.GREEN + "Lightning Tempo", Material.FEATHER,ChatColor.GRAY + "Current: " + fconfg.get("perks.lightning_tempo.power"), false));
         inv.setItem(12, create(ChatColor.GREEN + "Miner's Aura", Material.BLAZE_POWDER,ChatColor.GRAY + "Current: " + fconfg.get("perks.miners_aura.power"), false));
         inv.setItem(13, create(ChatColor.GREEN + "Prosperity", Material.GOLD_INGOT,ChatColor.GRAY + "Immutable", false));
-        inv.setItem(14, create(ChatColor.GREEN + "Sonar Sense", Material.NOTE_BLOCK,ChatColor.GRAY + "Current: " + fconfg.get("perks.miners_aura.power"), false));
+        inv.setItem(14, create(ChatColor.GREEN + "Sonar Sense", Material.NOTE_BLOCK,ChatColor.GRAY + "Immutable", false));
         inv.setItem(15, create(ChatColor.GREEN + "Hercules' Might", Material.BEDROCK,ChatColor.GRAY + "Immutable", false));
 
 
-
+        inv.setItem(4, create(ChatColor.RED + "" + ChatColor.BOLD + "Edit Power Levels", Material.BOOK, "Click an icon to edit its power levels!`Plugin must be reloaded or restarted`to save changes made.", true));
         inv.setItem(26, create(ChatColor.GREEN + "Go Back", Material.BARRIER,  false));
+
+        InventoryUtils.fillFiller(inv);
     }
 
     public Inventory getInventory() {

@@ -1,0 +1,17 @@
+perks:
+  detonation:
+    duration: 30
+    power: 5
+  lightning_tempo:
+    duration: 30
+    power: 5
+  miners_aura:
+    duration: 30
+    power: 5
+  prosperity:
+    duration: 40
+  sonar_sense:
+    duration: 30
+  hercules_might:
+    duration: 30
+    break_duration: 15

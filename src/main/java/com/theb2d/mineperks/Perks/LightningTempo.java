@@ -14,7 +14,6 @@ import java.util.List;
 public class LightningTempo {
 
     private static int duration = 30;
-    private static int power = 255;
     public static List<Player> players_affected = new ArrayList<Player>();
 
     private static MinePerks mainClass;
@@ -26,6 +25,8 @@ public class LightningTempo {
     public static List<Player> getPlayersAffected(){
         return players_affected;
     }
+
+    private static int power = mainClass.getConfig().getInt("perks.lightning_tempo.power");
 
     public static void apply(Player player){
         players_affected.add(player);

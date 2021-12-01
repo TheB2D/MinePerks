@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class DetonationEvents implements Listener {
 
-    private static float explosion_power = 5.0F;
+    private static float explosion_power;
     private static boolean setFire = false;
     private static int chance = 5;
 
@@ -24,6 +24,8 @@ public class DetonationEvents implements Listener {
 
     @EventHandler
     public static void onBreak(BlockBreakEvent e){
+
+        explosion_power = (float) mainClass.getConfig().getInt("perks.detonation.power");
 
         Block block = e.getBlock();
 
