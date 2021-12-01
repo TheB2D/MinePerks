@@ -26,9 +26,8 @@ public class LightningTempo {
         return players_affected;
     }
 
-    private static int power = mainClass.getConfig().getInt("perks.lightning_tempo.power");
-
     public static void apply(Player player){
+        int power = mainClass.getConfig().getInt("perks.lightning_tempo.power");
         players_affected.add(player);
         player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, duration*20, power));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6You felt a sudden burst of speed!"));

@@ -70,7 +70,6 @@ public final class MinePerks extends JavaPlugin {
 
         getCommand("sonarsense").setExecutor(sonarSenseOptionsTrigger);
         getCommand("mineperks").setExecutor(configuration);
-        getCommand("test").setExecutor(configuration);
 
         useHolographicDisplays = Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays");
 

@@ -21,8 +21,8 @@ public class MainMenu implements InventoryHolder {
     }
 
     public void init(){
-        inv.setItem(11, create(ChatColor.GOLD + "Perks Power Level", Material.FIRE_CHARGE, Collections.singletonList(ChatColor.GRAY + "Adjust the power of mining perks!"), false));
-        inv.setItem(15, create(ChatColor.GOLD + "Perks Duration", Material.CLOCK, Collections.singletonList(ChatColor.GRAY + "Adjust the duration of mining perks!"), false));
+        inv.setItem(11, create(ChatColor.GOLD + "Perks Property", Material.FIRE_CHARGE, Collections.singletonList(ChatColor.GRAY + "Adjust the properties of mining perks!"), false));
+        inv.setItem(15, create(ChatColor.GOLD + "Plugin Property", Material.SLIME_BALL, Collections.singletonList(ChatColor.GRAY + "Adjust the duration of mining perks!"), false));
         InventoryUtils.fillFiller(inv);
     }
 

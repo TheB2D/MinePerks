@@ -23,8 +23,6 @@ public class MinersAura {
         this.mainClass=main;
     }
 
-    private static float radius = (float) mainClass.getConfig().getInt("perks.miners_aura.power");
-
     public static List<Player> players_affected = new ArrayList<Player>();
 
     public static List<Player> getPlayersAffected(){
@@ -32,6 +30,8 @@ public class MinersAura {
     }
 
     public static void apply(Player player){
+        float radius = (float) mainClass.getConfig().getInt("perks.miners_aura.power");
+
         players_affected.add(player);
 
 

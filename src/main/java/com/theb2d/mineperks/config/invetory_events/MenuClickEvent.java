@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.util.Collections;
@@ -71,27 +72,53 @@ public class MenuClickEvent implements Listener {
 
         if(e.getClickedInventory().getHolder() instanceof MainMenu) {
             e.setCancelled(true);
+            PowerLevel powerLevel = new PowerLevel(mainClass);
             if (e.getCurrentItem().getType() == Material.FIRE_CHARGE) {
-                player.openInventory(new PowerLevel(mainClass).getInventory());
+                player.openInventory(powerLevel.getInventory());
             }
         }
 
         if(e.getClickedInventory().getHolder() instanceof PowerLevel){
             Consumer<String> editPower = (path) -> {player.closeInventory(); editConfig(player, config, "perks." + path + ".power", true);};
+            Consumer<String> editDuration = (path) -> {player.closeInventory(); editConfig(player, config, "perks." + path + ".duration", true);};
 
+            ItemStack currentItem = e.getCurrentItem();
             e.setCancelled(true);
             switch(e.getCurrentItem().getType()){
-                case BARRIER: // go back
+                case LIGHT_BLUE_STAINED_GLASS_PANE: // edit power
+                    if(currentItem.isSimilar(PowerLevel.detonationP_edit)){
+                        editPower.accept("detonation");
+                    }
+                    else if(currentItem.isSimilar(PowerLevel.tempoP_edit)){
+                        editPower.accept("lightning_tempo");
+                    }
+                    else if(currentItem.isSimilar(PowerLevel.auraP_edit)){
+                        editPower.accept("miners_aura");
+                    }
+                    break;
+
+                case LIME_STAINED_GLASS_PANE:
+                    if(currentItem.isSimilar(PowerLevel.detonationD_edit)){
+                        editDuration.accept("detonation");
+                    }
+                    else if(currentItem.isSimilar(PowerLevel.tempoD_edit)){
+                        editDuration.accept("lightning_tempo");
+                    }
+                    else if(currentItem.isSimilar(PowerLevel.auraD_edit)){
+                        editDuration.accept("miners_aura");
+                    }
+                    else if(currentItem.isSimilar(PowerLevel.prosperityD_edit)){
+                        editDuration.accept("prosperity");
+                    }
+                    else if(currentItem.isSimilar(PowerLevel.sonarD_edit)){
+                        editDuration.accept("sonar_sense");
+                    }
+                    else if(currentItem.isSimilar(PowerLevel.herculesD_edit)){
+                        editDuration.accept("hercules_might");
+                    }
+                    break;
+                case BARRIER:
                     player.openInventory(mainMenu.getInventory());
-                    break;
-                case TNT: // detonation
-                    editPower.accept("detonation");
-                    break;
-                case FEATHER: // lightning_tempo
-                    editPower.accept("lightning_tempo");
-                    break;
-                case BLAZE_POWDER: // miners_aura
-                    editPower.accept("miners_aura");
             }
         }
 
