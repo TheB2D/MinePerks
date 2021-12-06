@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MinersAura {
 
-    private static final int duration = 30;
+    private static int duration;
     private static final boolean givePoints = true; //give points for every 3 blocks mined
 
     private static MinePerks mainClass;
@@ -21,6 +21,7 @@ public class MinersAura {
 
     public MinersAura(MinePerks main){
         this.mainClass=main;
+        duration = main.getConfig().getInt("perks.miners_aura.duration");
     }
 
     public static List<Player> players_affected = new ArrayList<Player>();

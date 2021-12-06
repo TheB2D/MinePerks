@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Prosperity {
 
-    private static final int duration = 30;
+    private static int duration;
     public static int chance = 3;
     public static final ItemStack when_diamond_mined = new ItemStack(Material.DIAMOND_BLOCK);
     public static final ItemStack when_emerald_mined = new ItemStack(Material.EMERALD_BLOCK);
@@ -27,6 +27,7 @@ public class Prosperity {
 
     public Prosperity(MinePerks main){
         this.mainClass=main;
+        duration = main.getConfig().getInt("perks.prosperity.duration");
     }
 
     public static List<Player> players_affected = new ArrayList<Player>();

@@ -15,7 +15,7 @@ import static com.theb2d.mineperks.utils.InventoryUtils.create;
 public class PowerLevel implements InventoryHolder {
 
     // p stands for power
-    public static ItemStack detonationP_edit, tempoP_edit, auraP_edit, detonationD_edit, tempoD_edit, auraD_edit, prosperityD_edit, sonarD_edit, herculesD_edit;
+    public static ItemStack detonationP_edit, tempoP_edit, auraP_edit, detonationD_edit, tempoD_edit, auraD_edit, prosperityD_edit, sonarD_edit, herculesD_edit, hercules_break_edit;
 
     ItemStack immutable_power = create(ChatColor.GRAY + "Immutable value", Material.IRON_BARS, false);
 
@@ -39,6 +39,7 @@ public class PowerLevel implements InventoryHolder {
         prosperityD_edit = create(ChatColor.YELLOW + "Click to edit duration", Material.LIME_STAINED_GLASS_PANE, "Current Seconds: " + fconfg.get("perks.prosperity.duration"), false, 4);
         sonarD_edit = create(ChatColor.YELLOW + "Click to edit duration", Material.LIME_STAINED_GLASS_PANE, "Current Seconds: " + fconfg.get("perks.sonar_sense.duration"), false, 5);
         herculesD_edit = create(ChatColor.YELLOW + "Click to edit duration", Material.LIME_STAINED_GLASS_PANE, "Current Seconds: " + fconfg.get("perks.hercules_might.duration"), false, 6);
+        hercules_break_edit = create(ChatColor.AQUA + "Click to edit break duration", Material.RED_STAINED_GLASS_PANE, "Current Seconds: " + fconfg.get("perks.hercules_might.break_duration"), false);
 
 
         inv = Bukkit.createInventory(this, 54, ChatColor.BOLD + "Mining Perks config.yml");
@@ -70,6 +71,7 @@ public class PowerLevel implements InventoryHolder {
         inv.setItem(15, create(ChatColor.GREEN + "Hercules' Might", Material.BEDROCK, false));
         inv.setItem(24, immutable_power);
         inv.setItem(33, herculesD_edit);
+        inv.setItem(42, hercules_break_edit);
 
         inv.setItem(4, create(ChatColor.RED + "" + ChatColor.BOLD + "Edit Power Levels", Material.BOOK, "Click an icon to edit its power levels!`Plugin must be reloaded or restarted`to save changes made.", true));
         inv.setItem(53, create(ChatColor.GREEN + "Go Back", Material.BARRIER,  false));

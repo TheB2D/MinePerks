@@ -19,7 +19,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class HerculesMight {
-    public static int duration_of_break = 15; //secs
+    public static int duration_of_break;//secs
+    public static int duration;
 
     private static List<Player> players_affected = new ArrayList<Player>();
     private static MinePerks mainClass;
@@ -27,6 +28,8 @@ public class HerculesMight {
 
     public HerculesMight(MinePerks main){
         this.mainClass=main;
+        duration_of_break = main.getConfig().getInt("perks.hercules_might.break_duration");
+        duration = main.getConfig().getInt("perks.hercules_might.duration");
     }
 
     public static List<Player> getPlayersAffected(){
@@ -145,6 +148,14 @@ public class HerculesMight {
                 dur-=1;
             }
         }.runTaskTimer(mainClass, 0, 20);
+
+        new BukkitRunnable(){
+
+            @Override
+            public void run() {
+                players_affected.remove(player);
+            }
+        }.runTaskLater(mainClass, duration*20);
     }
 
 

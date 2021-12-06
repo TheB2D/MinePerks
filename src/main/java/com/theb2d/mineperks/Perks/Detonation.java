@@ -12,13 +12,15 @@ public class Detonation {
 
     // other players may get damaged from the explosion, but the user will not be damaged
 
-    private static int duration = 30; // in secs
+    private static int duration; // in secs
 
     private static MinePerks mainClass;
 
     public Detonation(MinePerks main){
         this.mainClass=main;
+        duration = main.getConfig().getInt("perks.detonation.duration");
     }
+
 
     public static List<Player> players_affected = new ArrayList<Player>();
 

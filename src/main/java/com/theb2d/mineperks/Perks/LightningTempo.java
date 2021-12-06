@@ -13,13 +13,14 @@ import java.util.List;
 
 public class LightningTempo {
 
-    private static int duration = 30;
+    private static int duration;
     public static List<Player> players_affected = new ArrayList<Player>();
 
     private static MinePerks mainClass;
 
     public LightningTempo(MinePerks main){
         this.mainClass=main;
+        duration = main.getConfig().getInt("perks.lightning_tempo.duration");
     }
 
     public static List<Player> getPlayersAffected(){

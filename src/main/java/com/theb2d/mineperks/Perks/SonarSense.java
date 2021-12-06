@@ -19,7 +19,7 @@ public class SonarSense {
     * TODO: Different messages for each response whether or not diamonds is in range*/
 
     public static int interval = 10; //secs
-    private static int duration = 60;
+    private static int duration;
 
     private static MinePerks mainClass;
 
@@ -62,6 +62,8 @@ public class SonarSense {
     }
 
     public static void apply(Player player){
+        duration = mainClass.getConfig().getInt("perks.sonar_sense.duration");
+
         players_affected.add(player);
         String ore = MaterialMatcher.matchMaterialOreFormStr(PlayerSonarSenseBindsTo.getPlayerTargetOre(player, false).getType(), false);
 

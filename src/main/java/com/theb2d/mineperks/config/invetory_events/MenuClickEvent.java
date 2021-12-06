@@ -117,8 +117,13 @@ public class MenuClickEvent implements Listener {
                         editDuration.accept("hercules_might");
                     }
                     break;
+                case RED_STAINED_GLASS_PANE:
+                    player.closeInventory();
+                    editConfig(player, config, "perks.hercules_might.break_duration", true);
+                    break;
                 case BARRIER:
                     player.openInventory(mainMenu.getInventory());
+                    break;
             }
         }
 
